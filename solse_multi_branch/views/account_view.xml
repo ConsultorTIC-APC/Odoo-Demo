@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_branch" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting_info_group']/field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_tree_branch" model="ir.ui.view">
+            <field name="name">account.move.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_tree_branch" model="ir.ui.view">
+            <field name="name">account.move.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_filter_branch" model="ir.ui.view">
+            <field name="name">account.move.search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='by_company']" position="after">
+                    <filter string="Sucursal" name="by_branch" domain="[]" context="{'group_by': 'branch_id'}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_tree_grouped_branch" model="ir.ui.view">
+            <field name="name">account.move.line.tree.grouped</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree_grouped"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_tree_branch" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_group_tree_branch" model="ir.ui.view">
+            <field name="name">account.journal.group.tree</field>
+            <field name="model">account.journal.group</field>
+            <field name="inherit_id" ref="account.view_account_journal_group_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_group_form_branch" model="ir.ui.view">
+            <field name="name">account.journal.group.form</field>
+            <field name="model">account.journal.group</field>
+            <field name="inherit_id" ref="account.view_account_journal_group_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_form_branch" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"  options="{'no_create': True}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_tree_branch" model="ir.ui.view">
+            <field name="name">account.journal.tree</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bank_statement_tree_branch" model="ir.ui.view">
+            <field name="name">account.bank.statement.tree</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bank_statement_form_branch" model="ir.ui.view">
+            <field name="name">account.bank.statement.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" options="{'no_create': True}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_tax_tree_branch" model="ir.ui.view">
+            <field name="name">account.tax.tree</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" options="{'no_create': True}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_tax_search_branch" model="ir.ui.view">
+            <field name="name">account.tax.search</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_account_tax_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+                <xpath expr="//filter[@name='company']" position="after">
+                    <filter string="Sucursal" name="branch" domain="[]" context="{'group_by': 'branch_id'}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_tax_view_search_branch" model="ir.ui.view">
+            <field name="name">account.tax.search</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.account_tax_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_tax_form_branch" model="ir.ui.view">
+            <field name="name">account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_tree_branch" model="ir.ui.view">
+            <field name="name">account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_search_branch" model="ir.ui.view">
+            <field name="name">account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_branch" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_payment_term_tree_branch" model="ir.ui.view">
+            <field name="name">account.payment.term.tree</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_payment_term_form_branch" model="ir.ui.view">
+            <field name="name">account.payment.term.form</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="acquirer_form_branch" model="ir.ui.view">
+            <field name="name">payment.acquirer.form</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="acquirer_list_branch" model="ir.ui.view">
+            <field name="name">payment.acquirer.list</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_report_search_branch" model="ir.ui.view">
+            <field name="name">account.invoice.report.search</field>
+            <field name="model">account.invoice.report</field>
+            <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='company']" position="after">
+                    <filter string="Sucursal" name="branch" context="{'group_by':'branch_id'}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_reconcile_model_form_branch" model="ir.ui.view">
+            <field name="name">account.reconcile.model.form</field>
+            <field name="model">account.reconcile.model</field>
+            <field name="inherit_id" ref="account.view_account_reconcile_model_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_position_form_branch" model="ir.ui.view">
+            <field name="name">account.fiscal.position.form</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_document_type_form_branch" model="ir.ui.view">
+            <field name="name">l10n_latam.document.type.form.view.inherit.solse_branch</field>
+            <field name="model">l10n_latam.document.type</field>
+            <field name="inherit_id" ref="l10n_latam_invoice_document.view_document_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="before">
+                    <field name="branch_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

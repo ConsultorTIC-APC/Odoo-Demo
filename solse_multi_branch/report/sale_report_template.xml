@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+
+    <template id="report_saleorder_document_branch" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="doc.branch_id" class="col-auto mw-100 mb-2">
+                <strong>Sucursal:</strong>
+                <p class="m-0" t-field="doc.branch_id"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document_branch" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div class="col-auto mw-100 mb-2" t-if="o.branch_id" name="reference">
+                <strong>Sucursal:</strong>
+                <p class="m-0" t-field="o.branch_id"/>
+            </div>
+        </xpath>
+    </template>
+
+    
+</data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_team_view_form_branch" model="ir.ui.view">
+            <field name="name">crm.team.form</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_team_view_tree_branch" model="ir.ui.view">
+            <field name="name">crm.team.tree</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

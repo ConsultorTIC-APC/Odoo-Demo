@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_branch_manager,access_res_branch_manager,model_res_branch,base.group_erp_manager,1,1,1,1
+access_res_branch,access_res_branch,model_res_branch,,1,1,1,1
+access_l10n_latam_document_type,access_l10n_latam_document_type,l10n_latam_invoice_document.model_l10n_latam_document_type,base.group_user,1,1,1,1

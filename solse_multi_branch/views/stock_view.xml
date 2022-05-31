@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_putaway_list_branch" model="ir.ui.view">
+            <field name="name">stock.putaway.rule.tree</field>
+            <field name="model">stock.putaway.rule</field>
+            <field name="inherit_id" ref="stock.stock_putaway_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inventory_tree_branch" model="ir.ui.view">
+            <field name="name">stock.inventory.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inventory_form_branch" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_location_form_branch" model="ir.ui.view">
+            <field name="name">stock.location.form</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_location_tree2_branch" model="ir.ui.view">
+            <field name="name">stock.location.tree</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_location_route_tree_branch" model="ir.ui.view">
+            <field name="name">stock.location.route.tree</field>
+            <field name="model">stock.location.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_location_route_form_view_branch" model="ir.ui.view">
+            <field name="name">stock.location.route.form</field>
+            <field name="model">stock.location.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_tree_branch" model="ir.ui.view">
+            <field name="name">stock.move.line.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_tree_branch" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_form_branch" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_form_branch" model="ir.ui.view">
+            <field name="name">stock.move.line.form</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_move_tree_branch" model="ir.ui.view">
+            <field name="name">stock.picking.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_picking_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_move_operations_branch" model="ir.ui.view">
+            <field name="name">stock.move.operations.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_tree_receipt_picking_branch" model="ir.ui.view">
+            <field name="name">stock.move.tree2</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_warehouse_branch" model="ir.ui.view">
+            <field name="name">stock.warehouse</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_warehouse_tree_branch" model="ir.ui.view">
+            <field name="name">stock.warehouse.tree</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_warehouse_orderpoint_tree_editable_branch" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.tree</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" readonly="1" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_warehouse_orderpoint_form_branch" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.form</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_warehouse_orderpoint_tree_editable_config_branch" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.tree.editable.config</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable_config"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_type_tree_branch" model="ir.ui.view">
+            <field name="name">Operation types</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_type_form_branch" model="ir.ui.view">
+            <field name="name">Operation types</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_type_list_branch" model="ir.ui.view">
+            <field name="name">stock.picking.type.list</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="vpicktree_branch" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_branch" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='extra']/group/group/field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="package_level_form_view_branch" model="ir.ui.view">
+            <field name="name">Package Level</field>
+            <field name="model">stock.package_level</field>
+            <field name="inherit_id" ref="stock.package_level_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_production_lot_form_branch" model="ir.ui.view">
+            <field name="name">stock.production.lot.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_production_lot_tree_branch" model="ir.ui.view">
+            <field name="name">stock.production.lot.tree</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="quant_search_view_branch" model="ir.ui.view">
+            <field name="name">stock.quant.search</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='company']" position="after">
+                    <filter string='Branch' name="branch" domain="[]" context="{'group_by': 'branch_id'}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_quant_tree_editable_branch" model="ir.ui.view">
+            <field name="name">stock.quant.tree.editable</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_quant_tree_branch" model="ir.ui.view">
+            <field name="name">stock.quant.tree</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quant_package_form_branch" model="ir.ui.view">
+            <field name="name">stock.quant.package.form</field>
+            <field name="model">stock.quant.package</field>
+            <field name="inherit_id" ref="stock.view_quant_package_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quant_package_tree_branch" model="ir.ui.view">
+            <field name="name">stock.quant.package.tree</field>
+            <field name="model">stock.quant.package</field>
+            <field name="inherit_id" ref="stock.view_quant_package_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_rule_tree_branch" model="ir.ui.view">
+            <field name="name">stock.rule.tree</field>
+            <field name="model">stock.rule</field>
+            <field name="inherit_id" ref="stock.view_stock_rule_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_rule_form_branch" model="ir.ui.view">
+            <field name="name">stock.rule.form</field>
+            <field name="model">stock.rule</field>
+            <field name="inherit_id" ref="stock.view_stock_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" attrs="{'required': [('action', '=', 'push')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_scrap_form_view_branch" model="ir.ui.view">
+            <field name="name">stock.scrap.form</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_return_picking_form_branch" model="ir.ui.view">
+            <field name="name">Return lines</field>
+            <field name="model">stock.return.picking</field>
+            <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_scrap_tree_view_branch" model="ir.ui.view">
+            <field name="name">stock.scrap.tree</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" readonly="1" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_branch" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_tree_view_branch" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="hide" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_packaging_tree_view_branch" model="ir.ui.view">
+            <field name="name">product.packaging.tree.view</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_packaging_form_view_branch" model="ir.ui.view">
+            <field name="name">product.packaging.form.view</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_supplierinfo_form_view_branch" model="ir.ui.view">
+            <field name="name">product.supplierinfo.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" options="{'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_supplierinfo_tree_view_branch" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" readonly="1" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

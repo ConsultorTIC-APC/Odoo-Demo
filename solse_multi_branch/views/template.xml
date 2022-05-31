@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="branch_menu_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/solse_multi_branch/static/src/scss/branch_menu.scss"/>
+            <script type="text/javascript" src="/solse_multi_branch/static/src/js/abstract_web_client.js"></script>
+            <script type="text/javascript" src="/solse_multi_branch/static/src/js/branch_session.js"></script>
+            <script type="text/javascript" src="/solse_multi_branch/static/src/js/branch_menu.js"></script>
+            <script type="text/javascript" src="/solse_multi_branch/static/src/js/switch_company.js"></script>
+        </xpath>
+    </template>
+</odoo>

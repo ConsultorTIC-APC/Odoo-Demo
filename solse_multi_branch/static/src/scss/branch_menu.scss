@@ -1,0 +1,30 @@
+
+.o_main_navbar {
+    .o_switch_branch_menu {
+        .dropdown-item {
+            cursor: pointer;
+
+            &:hover {
+                background-color: white;
+            }
+
+            .o_py {
+                padding-top: 0.2rem !important;
+                padding-bottom: 0.2rem !important;
+
+                &:hover {
+                    background-color: #e9ecef !important;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .o_switch_branch_menu > .dropdown-menu {
+        padding-top: 0px;
+        .bg-info {
+            padding: 10px;
+        }
+    }
+}

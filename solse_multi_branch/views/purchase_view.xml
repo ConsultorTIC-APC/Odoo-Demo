@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_form_branch" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='other_info']/field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_tree_branch" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_view_tree_branch" model="ir.ui.view">
+            <field name="name">purchase.order.tree2</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_kpis_tree_branch" model="ir.ui.view">
+            <field name="name">purchase.order.kpis</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" groups="solse_multi_branch.group_multi_branch" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_search_branch" model="ir.ui.view">
+            <field name="name">purchase.report.search</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='company']" position="after">
+                    <filter string="Sucursal" name="branch" context="{'group_by':'branch_id'}" groups="solse_multi_branch.group_multi_branch"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

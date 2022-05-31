@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="res.groups" id="group_multi_branch">
+            <field name="name">Multi Sucursales</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="res_branch_rule_portal" model="ir.rule">
+            <field name="name">branch rule portal</field>
+            <field name="model_id" ref="model_res_branch"/>
+            <field eval="False" name="global"/>
+            <field name="groups" eval="[(6, 0, [ref('base.group_portal')])]"/>
+            <field name="domain_force">[('id','in', branch_ids)]</field>
+        </record>
+        <record id="res_branch_rule_employee" model="ir.rule">
+            <field name="name">branch rule employee</field>
+            <field name="model_id" ref="model_res_branch"/>
+            <field eval="False" name="global"/>
+            <field name="groups" eval="[(6, 0, [ref('base.group_user')])]"/>
+            <field name="domain_force">[('id','in', branch_ids)]</field>
+        </record>
+        <record id="res_branch_rule_public" model="ir.rule">
+            <field name="name">branch rule public</field>
+            <field name="model_id" ref="model_res_branch"/>
+            <field eval="False" name="global"/>
+            <field name="groups" eval="[(6, 0, [ref('base.group_public')])]"/>
+            <field name="domain_force">[('id','in', branch_ids)]</field>
+        </record>
+        <record id="res_branch_rule_erp_manager" model="ir.rule">
+            <field name="name">branch rule erp manager</field>
+            <field name="model_id" ref="model_res_branch"/>
+            <field eval="False" name="global"/>
+            <field name="groups" eval="[(6, 0, [ref('base.group_erp_manager')])]"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+        </record>
+
+        <!-- Record Rule For User -->
+        <record id="res_users_rule_branch" model="ir.rule">
+            <field name="name">user rule branch</field>
+            <field name="model_id" ref="model_res_users"/>
+            <field eval="True" name="global"/>
+            <!--<field name="domain_force">[('branch_ids', 'in', branch_ids)]</field>-->
+            <field name="domain_force">[]</field>
+        </record>
+
+        <!-- Multi - Sucursal Rules in sale-->
+        <record model="ir.rule" id="sale_order_branch_rule">
+            <field name="name">Sales Order multi-branch</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="domain_force">[('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="sale_order_line_branch_rule">
+            <field name="name">Sales Order Line multi-branch</field>
+            <field name="model_id" ref="model_sale_order_line"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record id="sale_order_template_rule_branch" model="ir.rule">
+            <field name="name">Quotation Template multi-branch</field>
+            <field name="model_id" ref="model_sale_order_template"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <!-- Multi - Sucursal Rules in invoice -->
+        <record id="account_move_branch_rule" model="ir.rule">
+            <field name="name">Account Entry- Sucursal</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record id="account_move_line_branch_rule" model="ir.rule">
+            <field name="name">Entry lines- Sucursal</field>
+            <field name="model_id" ref="model_account_move_line"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record id="journal_group_branch_rule" model="ir.rule">
+            <field name="name">Journal multi-branch</field>
+            <field name="model_id" ref="model_account_journal_group"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record id="journal_branch_rule" model="ir.rule">
+            <field name="name">Journal multi-branch</field>
+            <field name="model_id" ref="model_account_journal"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record id="product_template_branch_rule" model="ir.rule">
+            <field name="name">Product Template multi-branch</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <!--<record id="product_product_branch_rule" model="ir.rule">
+            <field name="name">Product Product multi-branch</field>
+            <field name="model_id" ref="model_product_product"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>-->
+
+
+
+
+        <!--<record id="account_branch_rule" model="ir.rule">
+            <field name="name">Account multi-branch</field>
+            <field name="model_id" ref="model_account_account"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+        <record id="account_root_branch_rule" model="ir.rule">
+            <field name="name">Account Root multi-branch</field>
+            <field name="model_id" ref="model_account_root"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>-->
+
+        <record id="tax_branch_rule" model="ir.rule">
+            <field name="name">Tax multi-branch</field>
+            <field name="model_id" ref="model_account_tax"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+        <record id="account_fiscal_position_branch_rule" model="ir.rule">
+            <field name="name">Account fiscal Mapping branch rule</field>
+            <field name="model_id" ref="model_account_fiscal_position"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+        <record model="ir.rule" id="account_reconcile_model_template_branch_rule">
+            <field name="name">Account reconcile model template branch rule</field>
+            <field name="model_id" ref="model_account_reconcile_model"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+
+
+        <record id="invoice_analysis_branch_rule" model="ir.rule">
+            <field name="name">Invoice Analysis multi-branch</field>
+            <field name="model_id" ref="model_account_invoice_report"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="account_bank_statement_branch_rule">
+            <field name="name">Account bank statement branch rule</field>
+            <field name="model_id" ref="model_account_bank_statement"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="account_bank_statement_line_branch_rule">
+            <field name="name">Account bank statement line branch rule</field>
+            <field name="model_id" ref="model_account_bank_statement_line"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="account_payment_branch_rule">
+            <field name="name">Account payment branch rule</field>
+            <field name="model_id" ref="model_account_payment"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="account_payment_term_branch_rule">
+            <field name="name">Account payment term branch rule</field>
+            <field name="model_id" ref="model_account_payment_term"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="l10n_latam_document_type_branch_rule">
+            <field name="name">Latam Document Type branch rule</field>
+            <field name="model_id" ref="model_l10n_latam_document_type"/>
+            <field name="domain_force">['|', ('branch_id', '=', False), ('branch_id', 'in', branch_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

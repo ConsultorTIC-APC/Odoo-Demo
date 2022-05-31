@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <template id="report_invoice_branch" inherit_id="solse_pe_cpe.cpe_body_print" primary="True">
+        <xpath expr="//img[@t-if='company.logo']" position="replace">
+            <t t-if="o.branch_id" >
+                <img t-att-src="image_data_uri(o.branch_id.logo)" style="max-height: 90px; height: 90px; max-width: 150px; display:block; margin-left: auto; margin-right: auto; top: 30%;" alt="Logo"/>
+            </t>
+            <t t-else="">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px; height: 90px; max-width: 150px; display:block; margin-left: auto; margin-right: auto; top: 30%;" alt="Logo"/>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[@name='company_address']" position="replace">
+            <div class="col-4 empresa" name="company_address" style="text-transform: uppercase;">
+                <strong><t t-esc="company.name"/></strong>
+                <br/>
+                <t t-if="o.branch_id" >
+                    <t t-esc="o.branch_id.street"/>
+                    <br/>
+                    <br/>
+                    <t t-esc="o.branch_id.l10n_pe_district.name or company.partner_id.l10n_pe_district.name"/>,
+                    <t t-esc="o.branch_id.state_id.name or company.state_id.name"/>,
+                    <t t-esc="o.branch_id.city_id.name or company.partner_id.city_id.name"/>
+                </t>
+                <t t-else="">
+                    <t t-esc="company.street"/>
+                    <br/>
+                    <br/>
+                    <t t-esc="company.partner_id.l10n_pe_district.name"/>,
+                    <t t-esc="company.state_id.name"/>,
+                    <t t-esc="company.partner_id.city_id.name"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="account.report_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.invoice_user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <t t-call="solse_multi_branch.report_invoice_branch" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="account.report_invoice_with_payments">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+            	<t t-set="lang" t-value="o.invoice_user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <t t-call="solse_multi_branch.report_invoice_branch" t-lang="lang"/>
+    		</t>
+        </t>
+    </template>
+    
+</data>
+</odoo>
