@@ -1,6 +1,7 @@
 from odoo import models, fields, _
 from odoo.exceptions import UserError
 
+
 class HrExpense(models.Model):
     _inherit = 'hr.expense'
 
@@ -9,32 +10,41 @@ class HrExpense(models.Model):
 
     def action_generate_invoice(self):
         invoice_data = {
+            'currency_id': self.currency_id.id,
+            'invoice_user_id': self.env.user.id,
             'move_type': 'in_invoice',
             'ref': self.reference,
             'invoice_line_ids':  [(0, 0, {
-                'product_id': self.product_id,
-                'account_id': self.product_id.categ_id.property_account_income_categ_id.id,
+                'name': self.product_id.name,
+                'product_id': self.product_id.id,
+                'product_uom_id': self.product_id.uom_id.id,
                 'quantity': self.quantity,
                 'price_unit': self.unit_amount,
+                'tax_ids': [(6, 0, self.product_id.taxes_id.ids)],
+                'account_id': self.account_id.id
             })],
         }
         invoice_id = self.env['account.move'].create(invoice_data)
-        
+        # invoice_id._onchange_product_id()
+        invoice_id._onchange_invoice_line_ids()
         for line in invoice_id.line_ids:
             if not line.product_id or line.display_type in ('line_section', 'line_note'):
                 continue
             line.name = line._get_computed_name()
-            line.account_id = line._get_computed_account()
             taxes = line._get_computed_taxes()
             if taxes and line.move_id.fiscal_position_id:
-                taxes = line.move_id.fiscal_position_id.map_tax(taxes, partner=line.partner_id)
+                taxes = line.move_id.fiscal_position_id.map_tax(
+                    taxes, partner=line.partner_id)
             line.tax_ids = taxes
             line.product_uom_id = line._get_computed_uom()
-            
+
         invoice_id.invoice_line_ids._onchange_account_id()
-        invoice_id._onchange_invoice_line_ids()
-        invoice_id.line_ids.filtered(
-            lambda x: x.account_id.internal_type == 'receivable')._onchange_balance()
+
+        # invoice_id.line_ids._onchange_balance()
+        invoice_id.invoice_line_ids._onchange_price_subtotal()
+        # invoice_id.invoice_line_ids._onchange_mark_recompute_taxes()
+
+        # invoice_id._onchange_recompute_dynamic_lines()
         self.account_move_id = invoice_id
 
     def _get_expense_account_source(self):
@@ -44,34 +54,41 @@ class HrExpense(models.Model):
         elif self.account_id:
             account = self.account_id
         elif self.product_id:
-            account = self.product_id.product_tmpl_id.with_company(self.company_id)._get_product_accounts()['expense']
+            account = self.product_id.product_tmpl_id.with_company(
+                self.company_id)._get_product_accounts()['expense']
             if not account:
                 raise UserError(
                     _("No Expense account found for the product %s (or for its category), please configure one.") % (self.product_id.name))
         else:
-            account = self.env['ir.property'].with_company(self.company_id)._get('property_account_expense_categ_id', 'product.category')
+            account = self.env['ir.property'].with_company(self.company_id)._get(
+                'property_account_expense_categ_id', 'product.category')
             if not account:
-                raise UserError(_('Please configure Default Expense account for Product expense: `property_account_expense_categ_id`.'))
+                raise UserError(
+                    _('Please configure Default Expense account for Product expense: `property_account_expense_categ_id`.'))
         return account
-    
+
     def _get_account_move_line_values(self):
         move_line_values_by_expense = {}
         for expense in self:
-            move_line_name = expense.employee_id.name + ': ' + expense.name.split('\n')[0][:64]
+            move_line_name = expense.employee_id.name + \
+                ': ' + expense.name.split('\n')[0][:64]
             account_src = expense._get_expense_account_source()
             account_dst = expense._get_expense_account_destination()
-            account_date = expense.sheet_id.accounting_date or expense.date or fields.Date.context_today(expense)
+            account_date = expense.sheet_id.accounting_date or expense.date or fields.Date.context_today(
+                expense)
 
             company_currency = expense.company_id.currency_id
 
             move_line_values = []
-            taxes = expense.tax_ids.with_context(round=True).compute_all(expense.unit_amount, expense.currency_id, expense.quantity, expense.product_id)
+            taxes = expense.tax_ids.with_context(round=True).compute_all(
+                expense.unit_amount, expense.currency_id, expense.quantity, expense.product_id)
             total_amount = 0.0
             total_amount_currency = 0.0
             partner_dst_id = expense.employee_id.sudo().address_home_id.commercial_partner_id
-            partner_src_id =  self.account_move_id.partner_id
+            partner_src_id = self.account_move_id.partner_id
             # source move line
-            balance = expense.currency_id._convert(taxes['total_excluded'], company_currency, expense.company_id, account_date)
+            balance = expense.currency_id._convert(
+                taxes['total_excluded'], company_currency, expense.company_id, account_date)
             amount_currency = taxes['total_excluded']
             move_line_src = {
                 'name': move_line_name,
@@ -97,12 +114,15 @@ class HrExpense(models.Model):
 
             # taxes move lines
             for tax in taxes['taxes']:
-                balance = expense.currency_id._convert(tax['amount'], company_currency, expense.company_id, account_date)
+                balance = expense.currency_id._convert(
+                    tax['amount'], company_currency, expense.company_id, account_date)
                 amount_currency = tax['amount']
 
                 if tax['tax_repartition_line_id']:
-                    rep_ln = self.env['account.tax.repartition.line'].browse(tax['tax_repartition_line_id'])
-                    base_amount = self.env['account.move']._get_base_amount_to_display(tax['base'], rep_ln)
+                    rep_ln = self.env['account.tax.repartition.line'].browse(
+                        tax['tax_repartition_line_id'])
+                    base_amount = self.env['account.move']._get_base_amount_to_display(
+                        tax['base'], rep_ln)
                 else:
                     base_amount = None
 
