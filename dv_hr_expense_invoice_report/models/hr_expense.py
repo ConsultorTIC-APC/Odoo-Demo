@@ -85,7 +85,7 @@ class HrExpense(models.Model):
             total_amount = 0.0
             total_amount_currency = 0.0
             partner_dst_id = expense.employee_id.sudo().address_home_id.commercial_partner_id
-            partner_src_id = self.account_move_id.partner_id
+            partner_src_id = expense.account_move_id.partner_id
             # source move line
             balance = expense.currency_id._convert(
                 taxes['total_excluded'], company_currency, expense.company_id, account_date)
