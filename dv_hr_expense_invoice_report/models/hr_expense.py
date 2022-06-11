@@ -27,6 +27,7 @@ class HrExpense(models.Model):
         invoice_id = self.env['account.move'].create(invoice_data)
         # invoice_id._onchange_product_id()
         invoice_id._onchange_invoice_line_ids()
+        """
         for line in invoice_id.line_ids:
             if not line.product_id or line.display_type in ('line_section', 'line_note'):
                 continue
@@ -37,7 +38,7 @@ class HrExpense(models.Model):
                     taxes, partner=line.partner_id)
             line.tax_ids = taxes
             line.product_uom_id = line._get_computed_uom()
-
+        """
         invoice_id.invoice_line_ids._onchange_account_id()
 
         # invoice_id.line_ids._onchange_balance()
