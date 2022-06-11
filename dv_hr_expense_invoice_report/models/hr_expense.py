@@ -20,7 +20,7 @@ class HrExpense(models.Model):
                 'product_uom_id': self.product_id.uom_id.id,
                 'quantity': self.quantity,
                 'price_unit': self.unit_amount,
-                'tax_ids': [(6, 0, self.product_id.taxes_id.ids)],
+                'tax_ids': [(6, 0, self.tax_ids.ids)],
                 'account_id': self.account_id.id
             })],
         }
