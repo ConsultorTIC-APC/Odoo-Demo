@@ -88,8 +88,8 @@ class HrExpense(models.Model):
             move_line_src = {
                 'name': move_line_name,
                 'quantity': expense.quantity or 1,
-                'debit': 0,
-                'credit': expense.total_amount,
+                'debit': expense.total_amount,
+                'credit': 0,
                 #'amount_currency': amount_currency,
                 'account_id': account_src.id,
                 'product_id': expense.product_id.id,
@@ -108,8 +108,8 @@ class HrExpense(models.Model):
             # destination move line
             move_line_dst = {
                 'name': move_line_name,
-                'debit': expense.total_amount,
-                'credit': 0,
+                'debit': 0,
+                'credit': expense.total_amount,
                 'account_id': account_dst,
                 'date_maturity': account_date,
                 #'amount_currency': total_amount_currency,
